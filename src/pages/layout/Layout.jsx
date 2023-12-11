@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Alifshop from "../../assets/foto/alifshop";
 import MenuIcon from '@mui/icons-material/Menu';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
@@ -47,7 +46,7 @@ function Layout() {
           <p className="hidden md:block">Каталог товаров</p>
         </div>
         <div className="flex " >
-        <input dir="ltl" placeholder="название товара или артикул" className="pl-[1%] border-r-0  outline-[#FEBD1F] font-semibold text-[17px]  md:w-[550px] h-[50px] border-[3px] rounded-s-lg " type="search" />
+        <input dir="ltl" placeholder="название товара или артикул" className="pl-[1%] border-r-0 outline:border-l-0 outline-[#FEBD1F] font-semibold text-[17px] max-w-[550px]   h-[50px] border-[3px] rounded-s-lg " type="search" />
           <button dir="rtl" className="w-[60px] h-[50px] bg-[#FEBD1F] rounded-s-lg "><SearchIcon/></button>
         </div>
         <div className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
