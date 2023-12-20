@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import stir from "../../assets/stir.jpg"
 import prosent from "../../assets/prosent.jpg"
 import duxi from "../../assets/duxi.jpg"
@@ -20,10 +20,20 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import Card from '../../components/card'
 import Card1 from '../../components/card1'
+import { useSelector,useDispatch} from 'react-redux'
+import { getdata } from '../../zapros/zapros'
+
+
 function Home() {
+  const dispatch=useDispatch()
+
+  const data=useSelector((store)=>store.redus.data)
+useEffect(()=>{
+  dispatch(getdata())
+},[dispatch])
   return (
     
-      <main className='px-[8%] py-[2%]'>
+      <main className='px-[8%] pt-[10%] py-[2%]'>
         <section className='bg-[#EAF4FE] px-[8%] py-[5%] flex items-center justify-between  rounded-[10px]'>
           <div className='  flex flex-col gap-10   '>
             <div className='flex flex-col gap-2'>
@@ -41,8 +51,19 @@ function Home() {
         <section className='py-[5%]'>
           <h1 className='text-[25px] font-semibold'>Популярные категории</h1>
           <div className=' grid   md:grid-cols-4 lg:grid-cols-6 gap-10 px-[1%] '>
-            <Card img={prosent} p={"Скидки"} />
-            <Card img={ipfon} p={"Cмартфоны и планшеты"} />
+           {
+            data.map((el)=>{
+              return(
+                <div>
+                  <Card img={el.categoryImage} p={el.categoryName} />
+
+                </div>
+              )
+
+
+            })
+           }
+            {/* <Card img={ipfon} p={"Cмартфоны и планшеты"} />
             <Card img={kond} p={"Кондиционеры"} />
             <Card img={dux} p={"Парфюмерия"} />
             <Card img={naush} p={"Наушники"} />
@@ -52,7 +73,7 @@ function Home() {
             <Card img={mosh} p={"Бытовая техника"} />
             <Card img={pis} p={"Мелкая бытовая техника"} />
             <Card img={str} p={"Строительство и ремонт"} />
-            <Card img={dux} p={"Товары для красоты"} />
+            <Card img={dux} p={"Товары для красоты"} /> */}
 
 
 

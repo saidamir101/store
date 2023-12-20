@@ -1,5 +1,5 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
@@ -8,11 +8,54 @@ import SearchIcon from '@mui/icons-material/Search';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { useSelector,useDispatch } from "react-redux";
+import { getbyid, getdata } from "../../zapros/zapros";
+
 function Layout() {
+  const dispatch=useDispatch()
+
+  const [modal,setModal]=useState(false)
+
+
+  const data=useSelector((store)=>store.redus.data)
+  const databyid=useSelector((store)=>store.redus.databyid)
+  console.log(databyid);
+useEffect(()=>{
+  dispatch(getdata()),
+  dispatch(getbyid())
+},[dispatch])
   return (
     <div>
-      <header className="px-[8%] py-[2%] border-b-2">
-        <div className="flex items-center justify-between">
+      {/*  */}
+      <div style={{display:modal?"flex":"none"}}  className="fixed pr-[8%]    gap-5   w-[100%] top-[17%] h-[90%] bg-[#fffffff5] ">
+        <div className="flex overflow-auto flex-col gap-5 pl-[8%] h-[85%] py-[3%] w-[30%] bg-[#F3F4F5]"> 
+        {
+          data.map((el)=>{
+            
+            return(
+              <h1 onClick={()=>{dispatch(getbyid(el.id))}}  className=" hover:bg-[white] hover:text-[#FEBD1F] p-[2.5%] font-semibold text-[14.5px] cursor-pointer ">{el.categoryName}</h1>
+
+            )
+          })
+        }
+         </div>
+         <div   className="py-[3%] h-[80%] grid  gap-0 w-[80%] grid-cols-3">
+          {
+            databyid?.subCategories?.map((el)=>{
+              return(
+                <h1 className="text-[17px] cursor-pointer hover:text-[#FEBD1F]  font-bold">{el.subCategoryName}</h1>
+
+               )
+            })
+          } 
+         
+
+         </div>
+        
+      </div>
+      <header className="px-[8%] fixed bg-white w-[100%] z-0 py-[2%] border-b-2">
+        <div className="flex items-center   justify-between">
+          <Link to={"/Home"}>
         <svg
           width="148"
           height="42"
@@ -41,12 +84,14 @@ function Layout() {
             fill="#222222"
           ></path>
         </svg>
-        <div className="bg-[#FEBD1F] hover:bg-[#ffe9b1] cursor-pointer  md:w-[14%] h-[50px] flex items-center justify-center rounded-[10px] ">
+          </Link>
+        <div onClick={()=>setModal(modal?false:true)} className="bg-[#FEBD1F] hover:bg-[#ffe9b1] cursor-pointer  md:w-[14%] h-[50px] flex items-center justify-center rounded-[10px] ">
           <MenuIcon/>
           <p className="hidden md:block">Каталог товаров</p>
+          
         </div>
-        <div className="flex " >
-        <input dir="ltl" placeholder="название товара или артикул" className="pl-[1%] border-r-0 outline:border-l-0 outline-[#FEBD1F] font-semibold text-[17px] max-w-[550px]   h-[50px] border-[3px] rounded-s-lg " type="search" />
+        <div className="flex w-[40%]  " >
+        <input dir="ltl" placeholder="название товара или артикул" className="pl-[1%] w-[90%]  border-r-0 outline-[#FEBD1F] font-semibold text-[17px] max-w-[550px]   h-[50px] border-[2px] rounded-s-lg " type="search" />
           <button dir="rtl" className="w-[60px] h-[50px] bg-[#FEBD1F] rounded-s-lg "><SearchIcon/></button>
         </div>
         <div className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
@@ -57,14 +102,16 @@ function Layout() {
           <PersonIcon className="" sx={{fontSize:"30px"}}/>
           <p className="text-[12px] md:text-[14px] text-gray-500 font-semibold" >Войти</p>
         </div>
-        <div className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
+        <Link to={"/Korzina"}>
+        <div  className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
           <ShoppingCartIcon className="" sx={{fontSize:"30px"}}/>
           <p className="text-[12px]  md:text-[14px] text-gray-500 font-semibold" >Корзина</p>
         </div>
-
+        </Link>
 
         </div>
       </header>
+      
 
       <Outlet />
 
@@ -107,6 +154,7 @@ function Layout() {
           <h1 className="hover:text-[#FEBD1F] text-[12px] md:text-[18px] hover:cursor-pointer">support@alif.tj</h1>
         </div>
       </footer>
+      
     </div>
   );
 }

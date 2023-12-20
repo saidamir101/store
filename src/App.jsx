@@ -5,7 +5,7 @@ import axios from 'axios'
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
 import Layout from './pages/layout/Layout'
 import Home from './pages/home/home'
-
+import Korzina from './pages/korzina/korzina'
  function App() {
   const isRouder=createBrowserRouter([
     // {
@@ -18,16 +18,19 @@ import Home from './pages/home/home'
       element:<Layout/>,
       children:[
         {
-          index:"/Home",
+          path:"/Home",
           element:<Home/>
         },
+        {
+          path:"/Korzina",
+          element:<Korzina/>
+        }
 
         
         
       ]
     }
   ])
-  return ( <RouterProvider  router={isRouder}/>
-  )
+  return (<RouterProvider  router={isRouder}/>)
 }
 export default App
