@@ -50,12 +50,19 @@ useEffect(()=>{
 
         <section className='py-[5%]'>
           <h1 className='text-[25px] font-semibold'>Популярные категории</h1>
-          <div className=' grid   md:grid-cols-4 lg:grid-cols-6 gap-10 px-[1%] '>
+          <div className=' grid   md:grid-cols-4  items-baseline lg:grid-cols-6 gap-10 px-[1%] '>
            {
             data.map((el)=>{
+              console.log(el.categoryImage);
               return(
-                <div>
-                  <Card img={el.categoryImage} p={el.categoryName} />
+                <div >
+                  <Card img={`${import.meta.env.VITE_APP_FILES_URL}${
+                          el.categoryImage
+                        }`} p={el.categoryName} />
+                  {/* <div className='flex flex-col items-center text-center hover:text-[#FFC945] cursor-pointer' >
+    <img src={el.categoryImage} alt="" />
+    <p className='font-semibold text-[18px]'>{el.categoryName}</p>
+  </div> */}
 
                 </div>
               )
@@ -74,18 +81,6 @@ useEffect(()=>{
             <Card img={pis} p={"Мелкая бытовая техника"} />
             <Card img={str} p={"Строительство и ремонт"} />
             <Card img={dux} p={"Товары для красоты"} /> */}
-
-
-
-
-
-
-
-
-
-            
-            
-
           </div>
         </section>
 

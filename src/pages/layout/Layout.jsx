@@ -19,7 +19,6 @@ function Layout() {
 
   const data=useSelector((store)=>store.redus.data)
   const databyid=useSelector((store)=>store.redus.databyid)
-  console.log(databyid);
 useEffect(()=>{
   dispatch(getdata()),
   dispatch(getbyid())

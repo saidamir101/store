@@ -4,7 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 function Korzina() {
   return (
-    <div className='pt-[10%] pb-[3%] px-[8%]'>
+    <div className='pt-[10%] flex justify-between pb-[3%] px-[8%]'>
       {/* Korzina left  */}
       <div className='w-[55%] flex flex-col gap-5'>
         <div className='flex items-end justify-between'>
@@ -60,11 +60,39 @@ function Korzina() {
         </div>
       </div>
       {/* Korzina right  */}
-      <div>
-        <h1>Способ оплаты</h1>
-        <div>
-          <button className='border-2 border-[#FEBD1F]'>В рассрочку</button>
-          <button className='bg-[#F7F8F9]'>Наличными</button>
+      <div className='w-[35%] flex flex-col gap-2'>
+        <h1 className='text-[14px]  text-[grey]'>Способ оплаты</h1>
+        <div className='flex gap-5'>
+          <button className='border-2 w-[45%] py-[2%] rounded-[8px]  text-[14px] font-semibold border-[#FEBD1F]'>В рассрочку</button>
+          <button className='bg-[#F7F8F9] border-2 w-[45%] py-[2%] rounded-[8px]  text-[14px] font-semibold'>Наличными</button>
+        </div>
+        <div className='bg-[#F7F8F9] flex flex-col gap-3 p-[5%]  w-[95%]'>
+          <div className='flex justify-between  '>
+            <h1 className='text-[grey]'>Товары</h1>
+            <p className='text-[14px]'>149 с.</p>
+          </div>
+          <div className='flex justify-between  '>
+            <h1 className='text-[grey]'>Скидка
+</h1>
+            <p className='text-[14px]'>
+-52 с.</p>
+          </div>
+          <div className='flex justify-between  '>
+            <h1 className='text-[grey]'>Общая сумма доставки</h1>
+            <p className='text-[14px]'>
+0 с.</p>
+          </div>
+          <div className='flex justify-between  '>
+            <h1 className='text-[grey]'>Комиссия за товары (1)</h1>
+            <p className='text-[14px]'>29 с.</p>
+          </div>
+          <div className='flex justify-between  '>
+            <h1 className='text-[20px] font-semibold'>Итого</h1>
+            <p className='text-[20px] font-semibold'>126 с.</p>
+          </div>
+          <button className='py-[5%] rounded-[8px]  text-[14px] font-semibold bg-[#FEBD1F] '>Перейти к оформлению</button>
+
+          
         </div>
       </div>
       

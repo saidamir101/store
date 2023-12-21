@@ -20,7 +20,6 @@ export const getbyid=createAsyncThunk(
         console.log(id);
         try {
             const {data}=await axiosRequest.get(`Category/get-category-by-id?id=${id}`)
-            console.log(data.data);
             return data.data
         } catch (error) {
             console.log(error);

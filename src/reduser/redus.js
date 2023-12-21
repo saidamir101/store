@@ -24,7 +24,6 @@ const redus=createSlice({
         builder.addCase(getbyid.pending, (state,actions)=>{
         })
         builder.addCase(getbyid.fulfilled, (state,actions)=>{
-            console.log(actions.payload);
             state.databyid=actions.payload
         })
         builder.addCase(getbyid.rejected, (state,actions)=>{
