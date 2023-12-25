@@ -1,10 +1,10 @@
 import React from 'react'
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
-function Card1({img,p,p1,p2,p3,h1}) {
+
+function Card1({img,p,p1,p2,p3,h1,bg}) {
   return (
-    <div className='flex flex-col items-start w-[25%] gap-1 cursor-pointer hover:text-[#FFC945]'>
+    <div className={`flex flex-col items-start w-[25%] gap-1 cursor-pointer bg-[${bg}] hover:text-[#FFC945]`}>
               <img src={img} alt="" />
               <div className='text-[] flex gap-2'>
                 <p className='text-[18px] text-black font-bold'>{p}</p>
@@ -18,7 +18,6 @@ function Card1({img,p,p1,p2,p3,h1}) {
                 {h1}
               </h1>
               <button className=' bg-[#FFC945] text-black w-[] px-[2.5%] flex gap-2 py-[1%] h-[] rounded-[10px] font-semibold'><span><ShoppingCartCheckoutIcon/></span>В корзину</button>
-
             </div>
   )
 }

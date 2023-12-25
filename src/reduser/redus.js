@@ -1,15 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getbyid, getdata } from "../zapros/zapros";
-
+import { getbyid, getcart, getdata, getproduct } from "../zapros/zapros";
 
 const redus=createSlice({
     name:"redus",
     initialState:{
         data:[],
-        databyid:[]
+        databyid:[],
+        dataproduct:[],
+        datacart:[],
+        inpreg:"",
+        inpreg1:"",
+
 
     },
-    redusers:{
+    reducers:{
+
+        handleChange:(state,action)=>{
+            state[action.payload.type]=action.payload.settype
+        }
 
     },
     extraReducers:(builder)=>{
@@ -28,10 +36,27 @@ const redus=createSlice({
         })
         builder.addCase(getbyid.rejected, (state,actions)=>{
         })
+        // getproduct
+        builder.addCase(getproduct.pending, (state,actions)=>{
+        })
+        builder.addCase(getproduct.fulfilled, (state,actions)=>{
+            state.dataproduct=actions.payload
+        })
+        builder.addCase(getproduct.rejected, (state,actions)=>{
+        })
+        // getcart
+        builder.addCase(getcart.pending, (state,actions)=>{
+        })
+        builder.addCase(getcart.fulfilled, (state,actions)=>{
+            state.datacart=actions.payload
+        })
+        builder.addCase(getcart.rejected, (state,actions)=>{
+        })
+
+
 
     }
 })
 
+export const { handleChange }=redus.actions
 export default redus.reducer  
-
-export const {}=redus.actions

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import stir from "../../assets/stir.jpg"
 import prosent from "../../assets/prosent.jpg"
 import duxi from "../../assets/duxi.jpg"
@@ -11,30 +11,48 @@ import naush from "../../assets/naush.jpg"
 import nout from "../../assets/nout.jpg"
 import pis from "../../assets/pis.jpg"
 import str from "../../assets/str.jpg"
+import banner from "../../assets/banner.jpg"
+import banner1 from "../../assets/banner1.png"
 import televizor from "../../assets/televizor.jpg"
 import tel70 from "../../assets/tel70.webp"
 import redmi from "../../assets/redmi.webp"
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+
 
 import Card from '../../components/card'
 import Card1 from '../../components/card1'
 import { useSelector,useDispatch} from 'react-redux'
-import { getdata } from '../../zapros/zapros'
+import { getdata, getproduct, postcart } from '../../zapros/zapros'
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
 
 
 function Home() {
   const dispatch=useDispatch()
-
+  
+  const [modalcart,setModalCart] = useState(false)
+  
   const data=useSelector((store)=>store.redus.data)
+  const dataproduct=useSelector((store)=>store.redus.dataproduct)
+
 useEffect(()=>{
-  dispatch(getdata())
+  dispatch(getdata()),
+  dispatch(getproduct())
 },[dispatch])
   return (
     
       <main className='px-[8%] pt-[10%] py-[2%]'>
-        <section className='bg-[#EAF4FE] px-[8%] py-[5%] flex items-center justify-between  rounded-[10px]'>
+        {/* <section className='bg-[#EAF4FE] px-[8%] py-[5%] flex items-center justify-between  rounded-[10px]'>
           <div className='  flex flex-col gap-10   '>
             <div className='flex flex-col gap-2'>
             <h1 className='text-[40px] font-semibold'>Отдыхайте <br />
@@ -46,6 +64,30 @@ useEffect(()=>{
           <div>
             <img className='w-[200px] bg-black' src={stir} alt="" />
           </div>
+        </section> */}
+        <section className=' z-0'>
+        <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img className=' cursor-pointer' src={banner} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+        <img className=' cursor-pointer' src={banner1} alt="" />
+        </SwiperSlide>
+      </Swiper>
+
         </section>
 
         <section className='py-[5%]'>
@@ -53,9 +95,8 @@ useEffect(()=>{
           <div className=' grid   md:grid-cols-4  items-baseline lg:grid-cols-6 gap-10 px-[1%] '>
            {
             data.map((el)=>{
-              console.log(el.categoryImage);
               return(
-                <div >
+                <div key={el.id} >
                   <Card img={`${import.meta.env.VITE_APP_FILES_URL}${
                           el.categoryImage
                         }`} p={el.categoryName} />
@@ -96,15 +137,40 @@ useEffect(()=>{
 
             </div>
           </div>
-          <div className='py-[4%] flex flex-wrap justify-between gap-5 items-baseline'>
-            <Card1 img={tel70} p={"1220 c."} p1={"1900 c."} p2={"70 c."} p3={"x 24 мeс"} h1={"Телевизор Yasin-Smart32, 32дюйм."} />
-            <Card1 img={tel70} p={"1220 c."} p1={"1900 c."} p2={"70 c."} p3={"x 24 мeс"} h1={"Телевизор Yasin-Smart32, 32дюйм."} />
-            <Card1 img={tel70} p={"1220 c."} p1={"1900 c."} p2={"70 c."} p3={"x 24 мeс"} h1={"Телевизор Yasin-Smart32, 32дюйм."} />
-            <Card1 img={tel70} p={"1220 c."} p1={"1900 c."} p2={"70 c."} p3={"x 24 мeс"} h1={"Телевизор Yasin-Smart32, 32дюйм."} />
-            <Card1 img={redmi} p={"1220 c."} p1={"1900 c."} p2={"70 c."} p3={"x 24 мeс"} h1={"Масляный радиатор Nikura NOH844 2900W, белый"} />
+            <div className='  flex py-10  gap-10'>
+            {
+              Array.isArray(dataproduct.products) && dataproduct.products.map((el) =>{
+            // dataproduct.products.map((el)=>{
+              return(
+
+          // <div className='py-[4%] flex flex-wrap justify-between gap-5'>
+
+            <div key={el.id} className={`flex flex-col items-start w-[20%]   gap-1 cursor-pointer  hover:text-[#FFC945]`}>
+              <img className='h-[60%] w-[100%]' src={`${import.meta.env.VITE_APP_FILES_URL}${
+                          el.image
+                        }`} alt="" />
+              <div className='text-[] flex gap-2'>
+                <p className='text-[18px] text-black font-bold'>{el.price}</p>
+                <p className='text-[16px] text-[gray] font-semibold line-through'>{"1900 c."}</p>
+              </div>
+              <div className='text-[grey] flex gap-2'>
+                <p>{"70 c."}</p>
+                <p>{"x 24 мeс"}</p>
+              </div>
+              <h1 className='font-semibold'>
+                {el.productName}
+              </h1>
+              <button onClick={()=>dispatch(postcart(el.id))} className=' bg-[#FFC945] text-black w-[] px-[2.5%] flex gap-2 py-[1%]  rounded-[10px] font-semibold'><span><ShoppingCartCheckoutIcon/></span>В корзину</button>
+            </div>
            
-          </div>
-        </section>
+              )
+            })
+          }
+            </div>
+      </section>
+      {/* <div className='bg-[red] w-[20%] h-[80%]'>
+vekwmevkwenvj
+      </div> */}
 
       </main>
     

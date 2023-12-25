@@ -18,7 +18,8 @@ import Korzina from './pages/korzina/korzina'
       element:<Layout/>,
       children:[
         {
-          path:"/Home",
+          index:true,
+          // path:"/Home",
           element:<Home/>
         },
         {

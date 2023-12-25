@@ -9,16 +9,43 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { useSelector,useDispatch } from "react-redux";
-import { getbyid, getdata } from "../../zapros/zapros";
+import { getbyid, getdata, regis } from "../../zapros/zapros";
+
+
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import ClearIcon from '@mui/icons-material/Clear';
+import { handleChange } from "../../reduser/redus";
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 function Layout() {
   const dispatch=useDispatch()
 
   const [modal,setModal]=useState(false)
 
+  // modal regis 
+  const [modalregis,setModalregis]=useState(false)
+
+
+
 
   const data=useSelector((store)=>store.redus.data)
   const databyid=useSelector((store)=>store.redus.databyid)
+  const inpreg=useSelector((store)=>store.redus.inpreg)
+  const inpreg1=useSelector((store)=>store.redus.inpreg1)
 useEffect(()=>{
   dispatch(getdata()),
   dispatch(getbyid())
@@ -26,13 +53,34 @@ useEffect(()=>{
   return (
     <div>
       {/*  */}
-      <div style={{display:modal?"flex":"none"}}  className="fixed pr-[8%]    gap-5   w-[100%] top-[17%] h-[90%] bg-[#fffffff5] ">
+      {/* modalregis */}
+      <div style={{display:modalregis?"flex":"none"}} className=" bg-[#96919186] fixed justify-center items-center z-20 w-[100%]  h-[100%] ">
+      <div className="bg-[white]  p-[2%]  w-[28%] h-[55%] ">
+        <div className="flex justify-between">
+        <h1 className="font-semibold text-[20px]">Вход</h1>
+        <button onClick={()=>setModalregis(false)}><ClearIcon/></button>
+        </div>
+        <div className="flex flex-col justify-center items-center  h-[80%] gap-5" >
+          <div className="w-[70%]  flex   flex-col">
+          <h1 className="text-[14px] text-[#FEBD1F]">логин</h1>
+          <input value={inpreg} onChange={(e)=>dispatch(handleChange({type:"inpreg",settype:e.target.value}))} placeholder="Введите логин" className="border-[1.5px] focus:border-[#FEBD1F]  outline-none h-[50px] w-[100%]" type="text" />
+          </div>
+          <div className="w-[70%]  flex   flex-col">
+          <h1 className="text-[14px] text-[] text-[#FEBD1F]">пароль</h1>
+          <input value={inpreg1} onChange={(e)=>dispatch(handleChange({type:"inpreg1",settype:e.target.value}))} placeholder="Введите пароль" className="border-[1.5px] focus:border-[#FEBD1F] outline-none h-[50px] w-[100%]" type="text" />
+          </div>
+          <button onClick={()=>{dispatch(regis({"userName":inpreg,"password":inpreg1})),setModalregis(false)}} className="px-[20%] h-[20%] rounded-[10px] bg-[#FEBD1F]">Вход</button>
+        </div>
+
+      </div>
+    </div>
+      <div style={{display:modal?"flex":"none"}}  className="fixed pr-[8%] z-10    gap-5   w-[100%] top-[17%] h-[90%] bg-[#fffffff5] ">
         <div className="flex overflow-auto flex-col gap-5 pl-[8%] h-[85%] py-[3%] w-[30%] bg-[#F3F4F5]"> 
         {
           data.map((el)=>{
             
             return(
-              <h1 onClick={()=>{dispatch(getbyid(el.id))}}  className=" hover:bg-[white] hover:text-[#FEBD1F] p-[2.5%] font-semibold text-[14.5px] cursor-pointer ">{el.categoryName}</h1>
+              <h1 key={el.id} onClick={()=>{dispatch(getbyid(el.id))}}  className=" hover:bg-[white] hover:text-[#FEBD1F] p-[2.5%] font-semibold text-[14.5px] cursor-pointer ">{el.categoryName}</h1>
 
             )
           })
@@ -42,7 +90,7 @@ useEffect(()=>{
           {
             databyid?.subCategories?.map((el)=>{
               return(
-                <h1 className="text-[17px] cursor-pointer hover:text-[#FEBD1F]  font-bold">{el.subCategoryName}</h1>
+                <h1 key={el.id} className="text-[17px] cursor-pointer hover:text-[#FEBD1F]  font-bold">{el.subCategoryName}</h1>
 
                )
             })
@@ -52,15 +100,16 @@ useEffect(()=>{
          </div>
         
       </div>
-      <header className="px-[8%] fixed bg-white w-[100%] z-0 py-[2%] border-b-2">
+      <header className="px-[8%] fixed bg-white w-[100%] z-10 py-[2%] border-b-2">
         <div className="flex items-center   justify-between">
-          <Link to={"/Home"}>
+          <Link to={"/"}>
         <svg
           width="148"
           height="42"
           viewBox="0 0 148 42"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className=""
         >
           <path
             d="M24.1707 10.2237H18.6865L11.3539 28.2268H16.0496L21.4111 14.3236L26.7814 28.2268H31.4683L24.1707 10.2237Z"
@@ -97,10 +146,11 @@ useEffect(()=>{
           <LocationOnIcon className="" sx={{fontSize:"30px"}}/>
           <p className="text-[12px]  md:text-[14px] text-gray-500 font-semibold" >Душанбе</p>
         </div>
-        <div className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
+        <div onClick={()=>setModalregis(modalregis?false:true)} className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
           <PersonIcon className="" sx={{fontSize:"30px"}}/>
           <p className="text-[12px] md:text-[14px] text-gray-500 font-semibold" >Войти</p>
         </div>
+          
         <Link to={"/Korzina"}>
         <div  className=" hover:text-[#FEBD1F] hover:cursor-pointer flex flex-col items-center">
           <ShoppingCartIcon className="" sx={{fontSize:"30px"}}/>
