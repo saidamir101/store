@@ -6,7 +6,7 @@ import { delcart, getcart, inccart, redcart } from "../../zapros/zapros";
 function Korzina() {
   const dispatch = useDispatch();
   const datakart = useSelector((store) => store.redus.datacart);
-  console.log(datakart[0]?.totalPrice);
+  // console.log(datakart[0]?.totalPrice);
   useEffect(() => {
     dispatch(getcart());
   }, [dispatch]);
@@ -44,7 +44,7 @@ function Korzina() {
         {}
         <div className="flex flex-wrap w-[100%] justify-between gap-5">
           {datakart[0]?.productsInCart?.map((el) => {
-            console.log(el.id);
+            console.log(el);
             return (
               <div className="flex  items-end gap-5">
                 <div className="w-[30%] h-[100%] ">
@@ -77,9 +77,9 @@ function Korzina() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  {datakart[0]?.productsInCart.map((el) => {
+                  {/* {datakart[0]?.productsInCart.map((el) => {
                     console.log(el.id);
-                    return (
+                    return ( */}
                       <div className="border-[1px] w-[100%] rounded-[10px] flex gap-5 py-[5%] px-[20%]">
                         <button
                           style={{ cursor: el.quantity==1?"not-allowed":"pointer"}}
@@ -96,8 +96,8 @@ function Korzina() {
                           +
                         </button>
                       </div>
-                    );
-                  })}
+                    {/* );
+                  })} */}
                   <div
                     onClick={() => dispatch(delcart(el.id))}
                     className="hover:cursor-pointer"

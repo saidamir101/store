@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getbyid, getcart, getdata, getproduct } from "../zapros/zapros";
-
+import { getbyid, getcart, getdata, getproduct, getsearchprodusct } from "../zapros/zapros";
 const redus=createSlice({
     name:"redus",
     initialState:{
         data:[],
         databyid:[],
         dataproduct:[],
-        datacart:[],
+        datacart: [],
         inpreg:"",
-        inpreg1:"",
+        inpreg1: "",
+        datasearch:[],
+        searchinp:""
 
 
     },
@@ -52,6 +53,13 @@ const redus=createSlice({
         })
         builder.addCase(getcart.rejected, (state,actions)=>{
         })
+        // getsearchprodusct;
+         builder.addCase(getsearchprodusct.pending, (state, actions) => {});
+         builder.addCase(getsearchprodusct.fulfilled, (state, actions) => {
+           state.datasearch = actions.payload;
+         });
+         builder.addCase(getsearchprodusct.rejected, (state, actions) => {});
+
 
 
 

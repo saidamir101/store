@@ -38,6 +38,20 @@ export const getproduct=createAsyncThunk(
         }
     }
 )
+export const getsearchprodusct = createAsyncThunk(
+  "zapros/getsearchprodusct",
+  async function (sear ,{ getState }) {
+    try {
+      const { data } = await axiosRequest.get(
+        `Product/get-products?ProductName=${sear}`
+      );
+      console.log(data.data);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const getcart=createAsyncThunk(
     "zapros/getcart",

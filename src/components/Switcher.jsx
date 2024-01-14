@@ -19,7 +19,7 @@ function Switcher() {
         <DarkModeSwitch
         checked={darkside}
         onChange={toggleDarkMode}
-        size={56}
+        size={28}
         />
     </div>
 
